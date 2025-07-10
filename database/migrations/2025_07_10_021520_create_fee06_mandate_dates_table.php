@@ -15,7 +15,11 @@ class CreateFee06MandateDatesTable extends Migration
     {
         Schema::create('fee06_mandate_dates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('mandate_id')->nullable();
+            $table->unsignedBigInteger('fee_mandate_id')->nullable();
+
+            $table->string('name')->nullable();
+            $table->string('description')->nullable();
+            
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
 

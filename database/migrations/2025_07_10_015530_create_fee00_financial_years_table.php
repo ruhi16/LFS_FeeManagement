@@ -15,7 +15,10 @@ class CreateFee00FinancialYearsTable extends Migration
     {
         Schema::create('fee00_financial_years', function (Blueprint $table) {
             $table->id();
+            
             $table->string('name')->unique();
+            $table->string('description')->nullable();
+
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
 

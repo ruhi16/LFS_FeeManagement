@@ -15,7 +15,7 @@ class CreateFee02ParticularsTable extends Migration
     {
         Schema::create('fee02_particulars', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('fee_category_id')->nullable();
 
             $table->string('name')->unique();
             $table->string('description')->nullable(); 
