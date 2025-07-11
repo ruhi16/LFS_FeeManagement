@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFee06MandateDatesTable extends Migration
+class CreateFee10CollectionStudentRecordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,21 @@ class CreateFee06MandateDatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fee06_mandate_dates', function (Blueprint $table) {
+        Schema::create('fee10_collection_student_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fee_mandate_id')->nullable();
+            $table->unsignedBigInteger('studentcr_id')->nullable(); // Assuming 'studentcr' refers to a student record ID
+            $table->unsignedBigInteger('myclass_id')->nullable(); 
+            $table->unsignedBigInteger('section_id')->nullable();
 
-            $table->string('name')->nullable();
-            $table->string('description')->nullable();
+            $table->unsignedBigInteger('fee_mandate_id')->nullable();
+            $table->unsignedBigInteger('fee_mandate_date_id')->nullable();
             
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->unsignedBigInteger('fee_collection_id')->nullable();
+
+
+
+
+
 
             $table->unsignedBigInteger('financial_year_id')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
@@ -39,6 +45,6 @@ class CreateFee06MandateDatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fee06_mandate_dates');
+        Schema::dropIfExists('fee10_collection_student_records');
     }
 }

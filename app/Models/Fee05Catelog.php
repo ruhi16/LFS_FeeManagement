@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fee04StructureDetail extends Model
+class Fee05Catelog extends Model
 {
     use HasFactory;
 }

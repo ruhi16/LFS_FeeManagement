@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFee04StructureDetailsTable extends Migration
+class CreateFee09CollectionDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,25 @@ class CreateFee04StructureDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fee04_structure_details', function (Blueprint $table) {
+        Schema::create('fee09_collection_details', function (Blueprint $table) {
+            
             $table->id();
-            $table->unsignedBigInteger('fee_structure_id')->nullable();
+            $table->unsignedBigInteger('fee_collection_id')->nullable();
 
-            $table->string('name')->nullable();
-            $table->string('description')->nullable();
+            $table->unsignedBigInteger('fee_structure_id')->nullable();
+            $table->unsignedBigInteger('fee_structure_detail_id')->nullable();
             
             $table->unsignedBigInteger('fee_category_id')->nullable();
             $table->unsignedBigInteger('fee_particular_id')->nullable();
-            $table->decimal('amount', 10, 2)->nullable();            
-            
+            $table->decimal('amount', 10, 2)->nullable();
+
+
             $table->unsignedBigInteger('financial_year_id')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
             $table->string('remarks')->nullable();
             $table->string('status')->nullable();
             $table->integer('school_id')->nullable();
+            
             $table->timestamps();
         });
     }
@@ -40,6 +43,6 @@ class CreateFee04StructureDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fee04_structure_details');
+        Schema::dropIfExists('fee09_collection_details');
     }
 }

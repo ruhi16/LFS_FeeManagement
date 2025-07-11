@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFee07StrucreMandatesTable extends Migration
+class CreateFee06StructuresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,21 @@ class CreateFee07StrucreMandatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fee07_strucre_mandates', function (Blueprint $table) {
+        Schema::create('fee06_structures', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('fee_structure_id')->nullable();
-            $table->unsignedBigInteger('fee_mandate_id')->nullable();
+            
+            $table->bigInteger('financial_year_id')->nullable();
+            $table->bigInteger('myclass_id')->nullable();
+            $table->bigInteger('fee_mandate_id')->nullable();
 
             $table->string('name')->nullable();
             $table->string('description')->nullable();
 
 
-
-            $table->unsignedBigInteger('financial_year_id')->nullable();
             $table->boolean('is_active')->nullable()->default(true);
             $table->string('remarks')->nullable();
             $table->string('status')->nullable();
-            $table->integer('school_id')->nullable();
+            $table->integer('school_id')->nullable();           
             $table->timestamps();
         });
     }
@@ -40,6 +39,6 @@ class CreateFee07StrucreMandatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fee07_strucre_mandates');
+        Schema::dropIfExists('fee06_structures');
     }
 }

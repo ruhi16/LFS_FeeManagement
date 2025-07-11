@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFee05MandatesTable extends Migration
+class CreateFee05CatelogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,14 @@ class CreateFee05MandatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fee05_mandates', function (Blueprint $table) {
+        Schema::create('fee05_catelogs', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('myclass_id')->nullable();
+            $table->unsignedBigInteger('fee_category_id')->nullable();
+            $table->unsignedBigInteger('fee_particular_id')->nullable();
+            $table->decimal('amount', 10, 2)->nullable();
+
             $table->string('name')->nullable();
             $table->string('description')->nullable();
 
@@ -34,6 +40,6 @@ class CreateFee05MandatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fee05_mandates');
+        Schema::dropIfExists('fee05_catelogs');
     }
 }

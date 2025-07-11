@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fee06MandateDate extends Model
+class Fee09CollectionDetail extends Model
 {
     use HasFactory;
 }
