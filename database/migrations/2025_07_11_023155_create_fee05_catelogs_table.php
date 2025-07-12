@@ -21,6 +21,8 @@ class CreateFee05CatelogsTable extends Migration
             $table->unsignedBigInteger('fee_particular_id')->nullable();
             $table->decimal('amount', 10, 2)->nullable();
 
+            $table->string('fee_collection_type')->nullable();  // 1. Regular, 2. Special, 3. Student-fee 4. Other
+
             $table->string('name')->nullable();
             $table->string('description')->nullable();
 

@@ -15,10 +15,11 @@
         </aside>
         
         <main class="flex-1 p-4 bg-yellow-100">
-            <div class="bg-white shadow rounded-lg p-6">
-                <h3 class="text-lg font-semibold mb-4">Welcome to the Super Admin Dashboard</h3>
+            <div class="bg-white shadow rounded-lg p-6 mb-2">
+                <h3 class="text-xl font-bold mb-2">Welcome to the Super Admin Dashboard</h3>
                 <p class="text-gray-600">Here you can manage all aspects of the application.</p>
             </div>
+            @livewire('fee06-catelog-comp')
         </main>
 
     </div>
