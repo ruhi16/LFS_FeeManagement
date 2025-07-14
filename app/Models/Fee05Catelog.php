@@ -20,7 +20,7 @@ class Fee05Catelog extends Model
     }
 
     public function myclass(){
-        return $this->belongsTo(\App\Models\Myclass::class, 'class_id', 'id');
+        return $this->belongsTo(\App\Models\Myclass::class, 'myclass_id', 'id');
     }
 
 

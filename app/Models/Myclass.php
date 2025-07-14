@@ -10,6 +10,10 @@ class Myclass extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    public function scopeCurrentlyActive($query){
+        return $query->where('is_active', true)->get();
+    }
+
     public function studentdb(){
         return $this->hasMany(Studentdb::class, 'myclass_id', 'id');
         // 'myclass_id' is the foreign key in the 'studentdbs' tablet
@@ -29,14 +33,14 @@ class Myclass extends Model
     }   
 
 
-    public function feeStruectures(){
-        return $this->hasMany(FeeStructure::class,'myclass_id','id');
+    public function feeStructures(){
+        return $this->hasMany(Fee06Structure::class,'myclass_id','id');
         // 'myclass_id' is the foreign key in the 'fee_structures' tablet
         // 'id' is the primary key in the 'myclasses' table
     }
 
     public function mandates(){
-        return $this->hasMany(FeeMandate::class,'myclass_id','id');
+        return $this->hasMany(Fee03Mandate::class,'myclass_id','id');
         // 'myclass_id' is the foreign key in the 'fee_mandates' tablet
         // 'id' is the primary key in the 'myclasses' table
     }

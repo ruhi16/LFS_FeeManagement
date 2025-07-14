@@ -20,6 +20,29 @@ class Fee03Mandate extends Model
     }
 
 
+    public function myclass(){
+        return $this->belongsTo(\App\Models\Myclass::class, 'myclass_id', 'id');
+        // 'myclass_id' is the foreign key in the 'fee_mandates' table
+        // 'id' is the primary key in the 'myclasses' table
+    }
+
+
+    public function feeStructure(){
+        return $this->hasOne(\App\Models\Fee06Structure::class, 'fee_mandate_id', 'id');
+        // 'fee_structure_id' is the foreign key in the 'fee_mandates' table
+        // 'id' is the primary key in the 'fee_structures' table
+    }
+
+
+
+
+    public function mandateDates(){
+        return $this->hasMany(Fee04MandateDate::class, 'fee_mandate_id', 'id');
+        // 'fee_mandate_id' is the foreign key in the 'fee_mandate_dates' table
+        // 'id' is the primary key in the 'fee_mandates' table
+    }
+
+
 
 
 }

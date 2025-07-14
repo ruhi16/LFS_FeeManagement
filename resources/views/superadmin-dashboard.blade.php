@@ -19,7 +19,9 @@
                 <h3 class="text-xl font-bold mb-2">Welcome to the Super Admin Dashboard</h3>
                 <p class="text-gray-600">Here you can manage all aspects of the application.</p>
             </div>
-            @livewire('fee06-catelog-comp')
+            {{-- @livewire('fee06-catelog-comp') --}}
+            {{-- @livewire('fee08-structure-detail-comp') --}}
+            @livewire('fee10-collection-detail-comp')
         </main>
 
     </div>
