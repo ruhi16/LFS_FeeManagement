@@ -27,7 +27,7 @@
 
     <div class="bg-white shadow rounded-lg p-6">
         <h3 class="text-lg font-semibold mb-4">
-            <span class="text-blue-600 font-bold">Fee Structure</span> Activities
+            Class Wise <span class="text-blue-600 font-bold">Fee Collection</span> Activities
         </h3>
         <p class="text-gray-600 mb-4">Here are some recent activities:{{ $selectedMyclassId ?? 'NA'}}</p>
         
@@ -35,35 +35,19 @@
         <!-- Tabs -->
         <div class="mb-4 border-b border-gray-200">
             <ul class="flex flex-wrap -mb-px" id="myTab" role="tablist">
+
                 @foreach($myclasses as $myclass)
                 <li class="mr-2" role="presentation">
                     <button
                         {{-- wire:model="myclassId"  --}}
                         wire:click="selectMyclass({{ $myclass->id }})" 
-                        class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 font-medium" 
+                        class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 font-medium {{ $selectedMyclassId == $myclass->id ? 'border-b-8 border-blue-600 text-blue-600 active ' : '' }}"
                             id="all-tab" data-tabs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                        {{ $myclass->name }}
+                        {{ $myclass->name }} {{ $selectedMyclassId == $myclass->id ? '(Selected)' : '' }}
                     </button>
                 </li>
                 @endforeach
-                {{-- <li class="mr-2" role="presentation">
-                    <button class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 font-medium active"
-                            id="pending-tab" data-tabs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="false">
-                        Pending
-                    </button>
-                </li>
-                <li class="mr-2" role="presentation">
-                    <button class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 font-medium"
-                            id="completed-tab" data-tabs-target="#completed" type="button" role="tab" aria-controls="completed" aria-selected="false">
-                        Completed
-                    </button>
-                </li>
-                <li role="presentation">
-                    <button class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 font-medium"
-                            id="overdue-tab" data-tabs-target="#overdue" type="button" role="tab" aria-controls="overdue" aria-selected="false">
-                        Overdue
-                    </button>
-                </li> --}}
+                
             </ul>
         </div>
 
@@ -72,24 +56,32 @@
             {{-- <h4 class="text-md font-medium mb-3 text-gray-700">Select Fee Structure</h4> --}}
             <div class="flex flex-wrap gap-3">
                 <!-- Fee Structure Options -->
-                <button class="fee-structure-option px-4 py-2 border rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-200"
-                        data-fee-structure="annual">
-                    Annual Fee
-                </button>
-                <button class="fee-structure-option px-4 py-2 border rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-200 active"
-                        data-fee-structure="semester">
-                    Semester Fee
-                </button>
-                <button class="fee-structure-option px-4 py-2 border rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-200"
-                        data-fee-structure="monthly">
-                    Monthly Fee
-                </button>
-                <button class="fee-structure-option px-4 py-2 border rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-200"
-                        data-fee-structure="activity">
-                    Activity Fee
-                </button>
+                {{-- {{ $feeStructures ?? 'NA' }} --}}
+                @foreach($feeStructures as $feeStructure)
+                    <button 
+                        wire:click="selectFeeStructure({{ $feeStructure->id }})"
+                        class="fee-structure-option px-4 py-2 border rounded-lg font-medium text-gray-700 hover:bg-blue-50 hover:border-blue-200
+                            {{ $selectedFeeStructureId == $feeStructure->id ? 'bg-blue-100 border-blue-300 text-blue-700' : 'text-gray-700' }}"
+                            data-fee-structure="annual">
+                        {{ $feeStructure->name ?? 'NA' }}
+                    </button>
+                @endforeach
+                
             </div>
         </div>
+
+        @if($showFeeCollectionIndividual)
+        <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+            <h4 class="text-md font-medium mb-3 text-gray-700">Select Mandate Date</h4>
+            <div class="flex flex-wrap gap-3"></div>
+                <!-- Mandate Date Options -->
+                @livewire('fee10-collection-detail-individual-comp',[
+                    'studentcrId' => $studentcr->id,                    
+                    'feeStructureId' => $feeStructure->id,
+                    'mandateDateId' => $mandateDate->id,
+                ]);
+        </div>
+        @endif
         
         <!-- Tab content -->
         <div class="overflow-x-auto">
@@ -107,9 +99,12 @@
                     <!-- Sample rows would go here -->
                     {{-- {{ json_encode($myclasses->find($selectedMyclassId)->studentcrs() ) }} --}}
 
-                    @php 
-                        $selectedMyclassFeeStructure = $myclasses->find($selectedMyclassId)->feeStructures->find($selectedFeeStructureId);
-                    @endphp
+                    {{-- @php 
+                        $selectedMyclassFeeStructure = $myclasses->find($selectedMyclassId)
+                            ->feeStructures->find($selectedFeeStructureId);
+                    @endphp --}}
+                    {{-- {{ $selectedFeeStructureId ?? 'NA' }} --}}
+                    @if($selectedFeeStructureId)
                     @foreach($myclasses->find($selectedMyclassId)->studentcrs as $studentcr )
                         <tr class="border-b border-gray-200">
                             <td class="p-2 border border-gray-300">{{ $loop->iteration}}-{{ $studentcr->id }}</td>
@@ -119,12 +114,25 @@
                                 {{-- {{ $selectedMyclassFeeStructure->structureDetails->sum('amount') }} --}}
                                 {{-- {{ $selectedMyclassFeeStructure->feeMandate->name }} --}}
                                 {{-- {{ $selectedMyclassFeeStructure->feeMandate->mandateDates }} --}}
-                                @foreach($selectedMyclassFeeStructure->feeMandate->mandateDates as $mandateDate)                                
+
+                                {{-- {{ $myclasses->find($selectedMyclassId)->feeStructures }} --}}
+                                {{-- {{ $selectedFeeStructureId->feeMandate->mandateDates }} --}}
+                                @foreach($feeStructures->first()->feeMandate->mandateDates as $mandateDate)                                
+                                    <button 
+
+                                        wire:click="collectFeeStudentcr({{ $studentcr->id }}, {{ $mandateDate->id }})"
+                                        class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition">
+                                        {{ $mandateDate->start_date }}
+                                    </button>
+                                @endforeach
+
+                                {{-- @foreach($selectedMyclassFeeStructure->feeMandate->mandateDates as $mandateDate)                                
                                     <button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition">
                                         {{ $mandateDate->start_date }}
                                     </button>
+                                @endforeach --}}
 
-                                @endforeach
+                                
                                 {{-- {{ $myclasses->find($selectedMyclassId)->feeStructures->find($selectedFeeStructureId)->structureDetails->count() }} --}}
                                 {{-- {{ $studentcr->feeCollections->count() }} Fee Details --}}
                                 {{-- @if($studentcr->feeCollections->isEmpty())
@@ -152,6 +160,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    @endif
                     {{-- <tr class="border-b border-gray-200">
                         <td class="p-2 border border-gray-300">2-102</td>
                         <td class="p-2 border border-gray-300">Class B</td>
@@ -166,7 +175,7 @@
     </div>
     
     <!-- JavaScript for tab functionality (optional) -->
-    <script>
+    {{-- <script>
         const tabs = document.querySelectorAll('[role="tab"]');
         
         tabs.forEach(tab => {
@@ -207,7 +216,7 @@
                 // Add your filtering logic here
             });
         });
-    </script>
+    </script> --}}
 
 
 

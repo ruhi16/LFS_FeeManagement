@@ -1,5 +1,6 @@
 <div>
   <div>
+
     <div id="alert-container" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
       @if (session()->has('success'))
           <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
@@ -21,7 +22,7 @@
               }, 5000);
           </script>
       @endif
-  </div>
+    </div>
 
 
 
@@ -71,9 +72,9 @@
 
   <div>
     <!-- Modal Trigger Button (can be placed wherever you need it) -->
-    <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+    {{-- <button wire:click="openModal" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
       Add New Fee Catalog {{ $showModal ? 'Close' : 'x' }}
-    </button>
+    </button> --}}
 
     <!-- Modal Backdrop -->
     @if($showModal)
@@ -119,8 +120,11 @@
                   <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endforeach
                 </select>
-                @error('fee_category_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                @error('fee_category_id') 
+                  <span class="text-red-500 text-xs">{{ $message }}</span> 
+                @enderror {{-- $message is defined by Laravel's @error directive --}}
               </div>
+              
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <!-- Fee Particular -->
@@ -159,8 +163,6 @@
               @error('fee_collection_type') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
 
-            
-
 
           </form>
         </div>
@@ -177,7 +179,9 @@
         </div>
       </div>
     </div>
-    @endif
+    @endif  {{-- End of Modal Window --}}
+
+
   </div>
 
 

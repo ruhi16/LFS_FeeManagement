@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire;
-
 use Livewire\Component;
 
 class Fee06CatelogComp extends Component{
@@ -70,34 +69,32 @@ class Fee06CatelogComp extends Component{
 
 
         try{
+            \App\Models\Fee05Catelog::updateOrCreate([
+                'id' => $feeCatelogId,
+            ], [
+                'myclass_id' => $this->myclass_id,
+                'fee_category_id' => $this->fee_category_id,
+                'fee_particular_id' => $this->fee_particular_id,
+                'amount' => $this->amount,
+                'fee_collection_type' => $this->fee_collection_type,
+            ]);
 
-        \App\Models\Fee05Catelog::updateOrCreate([
-            'id' => $feeCatelogId,
-        ], [
-            'myclass_id' => $this->myclass_id,
-            'fee_category_id' => $this->fee_category_id,
-            'fee_particular_id' => $this->fee_particular_id,
-            'amount' => $this->amount,
-            'fee_collection_type' => $this->fee_collection_type,
-        ]);
 
-
-        // Reset the form fields
-        $this->reset(['myclass_id', 'fee_category_id', 'fee_particular_id', 'amount', 'fee_collection_type']);
-        // Refresh the fee catalogs
-        $this->feeCatalogs = \App\Models\Fee05Catelog::with(['myclass', 'feeCategory', 'feeParticular'])
-            ->currentlyActive()
-            ->whereHas('myclass', function($query) {
-                $query->where('is_active', true);
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
+            // Reset the form fields
+            $this->reset(['myclass_id', 'fee_category_id', 'fee_particular_id', 'amount', 'fee_collection_type']);
+            // Refresh the fee catalogs
+            $this->feeCatalogs = \App\Models\Fee05Catelog::with(['myclass', 'feeCategory', 'feeParticular'])
+                ->currentlyActive()
+                ->whereHas('myclass', function($query) {
+                    $query->where('is_active', true);
+                })
+                ->orderBy('created_at', 'desc')
+                ->get();
 
             session()->flash('success', 'Fee catalog saved successfully!');
         }catch(\Exception $e){
             // Handle the exception, e.g., log it or show an error message
-            session()->flash('error', 'Failed to save fee catalog: ' . $e->getMessage());
-            
+            session()->flash('error', 'Failed to save fee catalog: ' . $e->getMessage());            
         }
         
         $this->closeModal();
