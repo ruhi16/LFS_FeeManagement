@@ -107,7 +107,9 @@
                   <option value="{{ $class->id }}">{{ $class->name }}</option>
                   @endforeach
                 </select>
-                @error('myclass_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                @error('myclass_id') 
+                  <span class="text-red-500 text-xs">{{ $message }}</span> 
+                @enderror
               </div>
 
               <!-- Fee Category -->
@@ -120,9 +122,9 @@
                   <option value="{{ $category->id }}">{{ $category->name }}</option>
                   @endforeach
                 </select>
-                @error('fee_category_id') 
-                  <span class="text-red-500 text-xs">{{ $message }}</span> 
-                @enderror {{-- $message is defined by Laravel's @error directive --}}
+                @error('fee_category_id')
+                  <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
               </div>
               
             </div>
@@ -137,7 +139,9 @@
                   <option value="{{ $particular->id }}">{{ $particular->name }}</option>
                   @endforeach
                 </select>
-                @error('fee_particular_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                @error('fee_particular_id') 
+                  <span class="text-red-500 text-xs">{{ $message }}</span> 
+                @enderror
               </div>
 
               <!-- Amount -->
@@ -146,7 +150,9 @@
                 <input type="number" wire:model="amount"
                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter amount">
-                @error('amount') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                @error('amount') 
+                  <span class="text-red-500 text-xs">{{ $message }}</span> 
+                @enderror
               </div>
             </div>
 
@@ -160,7 +166,9 @@
                 <option value="Quarterly">Quarterly</option>
                 <option value="Yearly">Yearly</option>
               </select>
-              @error('fee_collection_type') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+              @error('fee_collection_type') 
+                <span class="text-red-500 text-xs">{{ $message }}</span> 
+              @enderror
             </div>
 
 

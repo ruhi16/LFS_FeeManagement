@@ -97,7 +97,7 @@ class Fee10CollectionDetailComp extends Component{
     }
 
 
-
+    
 
 
 

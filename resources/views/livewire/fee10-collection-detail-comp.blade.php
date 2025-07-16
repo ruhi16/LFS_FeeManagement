@@ -79,7 +79,7 @@
                     'studentcrId' => $studentcr->id,                    
                     'feeStructureId' => $feeStructure->id,
                     'mandateDateId' => $mandateDate->id,
-                ]);
+                ])
         </div>
         @endif
         

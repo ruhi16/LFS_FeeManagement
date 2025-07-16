@@ -10,6 +10,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Livewire\Contact;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\About;
+use App\Http\Livewire\Fee10CollectionDetailIndividualComp;
 use App\Http\Livewire\SubadminMarksEntryComponent;
 use App\Http\Livewire\SubadminMarksEntryEntityComponent;
 use App\Http\Livewire\UserChangePasswordComponent;
@@ -26,6 +27,10 @@ Route::group(
             App\Http\Controllers\SuperAdminController::class,
             'dashboard',
         ])->name('supAdminDash');
+
+
+        Route::get('/dashboard/fee-collection/{studentcrId}/{mandateDateId}/{feeStructureId}', Fee10CollectionDetailIndividualComp::class)
+            ->name('feeCollectionDash');
 
       
     }
