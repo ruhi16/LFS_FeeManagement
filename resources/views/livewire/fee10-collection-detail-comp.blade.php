@@ -105,7 +105,7 @@
                     @endphp --}}
                     {{-- {{ $selectedFeeStructureId ?? 'NA' }} --}}
                     @if($selectedFeeStructureId)
-                    @foreach($myclasses->find($selectedMyclassId)->studentcrs as $studentcr )
+                        @foreach($myclasses->find($selectedMyclassId)->studentcrs as $studentcr )
                         <tr class="border-b border-gray-200">
                             <td class="p-2 border border-gray-300">{{ $loop->iteration}}-{{ $studentcr->id }}</td>
                             <td class="p-2 border border-gray-300">{{ $studentcr->studentdb->name }}</td>
@@ -119,11 +119,15 @@
                                 {{-- {{ $selectedFeeStructureId->feeMandate->mandateDates }} --}}
                                 @foreach($feeStructures->first()->feeMandate->mandateDates as $mandateDate)                                
                                     <button 
+                                        onClick="openCompactWindow('{{ route('feeCollectionIndividual',[$studentcr->id, $mandateDate->id, $feeStructure->id]) }}', 400, 600)"
 
-                                        wire:click="collectFeeStudentcr({{ $studentcr->id }}, {{ $mandateDate->id }})"
+                                        {{-- wire:click="collectFeeStudentcr({{ $studentcr->id }}, {{ $mandateDate->id }})" --}}
                                         class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition">
                                         {{ $mandateDate->start_date }}
-                                    </button>
+                                    {{-- </button>
+                                    <a href="{{ route('feeCollectionIndividual',[$studentcr->id, $mandateDate->id, $feeStructure->id]) }}" target="_blank" class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 transition">
+                                        {{ $mandateDate->start_date }}
+                                    </a> --}}
                                 @endforeach
 
                                 {{-- @foreach($selectedMyclassFeeStructure->feeMandate->mandateDates as $mandateDate)                                
@@ -154,12 +158,12 @@
                             </td>
                             <td class="p-2 border border-gray-300">
                                 {{-- <button class="text-blue-600 hover:underline">View</button> --}}
-                                <button wire:click="view({{ $studentcr->id }})" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition">View</button>
-                                <button wire:click="edit({{ $studentcr->id }})" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 transition">Edit</button>
+                                <button onClick="openCompactWindow('{{ route('feeCollectionIndividual',[$studentcr->id, $mandateDate->id, $feeStructure->id]) }}', 400, 600)" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition">View</button>
+                                <button onClick="closeOpenedTab()" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 transition">Edit</button>
                                 <button wire:click="delete({{ $studentcr->id }})"  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition">Delete</button>
                             </td>
                         </tr>
-                    @endforeach
+                        @endforeach
                     @endif
                     {{-- <tr class="border-b border-gray-200">
                         <td class="p-2 border border-gray-300">2-102</td>
@@ -173,6 +177,44 @@
             </table>
         </div>
     </div>
+    <script>
+        function openCompactWindow(url, width, height) {
+        // Define features for the new window
+        // 'popup=yes' or 'popup' helps indicate to the browser that it's a popup window,
+        // which can influence whether it opens as a tab or a separate window.
+        // 'toolbar=no', 'menubar=no', 'scrollbars=no', 'resizable=yes'
+        // are common options for a more compact, less cluttered window.
+        const windowFeatures = `width=${width},height=${height},left=100,top=100,popup=yes,toolbar=no,menubar=no,scrollbars=yes,resizable=yes`;
+
+        // Open the new window
+        const newWindow = window.open(url, '_blank', windowFeatures);
+
+        // Check if the window was opened successfully (e.g., not blocked by a pop-up blocker)
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                alert('Pop-up blocked! Please allow pop-ups for this site to open the compact window.');
+            }
+        }
+
+
+        let newTab; // Declare a variable to hold the reference to the new tab
+
+        function openNewTab() {
+        newTab = window.open("https://www.example.com", "_blank");
+        if (newTab) {
+            console.log("New tab opened successfully!");
+        } else {
+            alert("Pop-up blocked! Please allow pop-ups for this site.");
+        }
+        }
+        function closeOpenedTab() {
+        if (newTab && !newTab.closed) { // Check if the tab exists and is not already closed
+            newTab.close();
+            console.log("Tab closed!");
+        } else {
+            console.log("No tab to close or tab already closed.");
+        }
+        }
+    </script>
     
     <!-- JavaScript for tab functionality (optional) -->
     {{-- <script>

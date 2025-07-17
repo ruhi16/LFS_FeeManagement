@@ -29,8 +29,8 @@ Route::group(
         ])->name('supAdminDash');
 
 
-        Route::get('/dashboard/fee-collection/{studentcrId}/{mandateDateId}/{feeStructureId}', Fee10CollectionDetailIndividualComp::class)
-            ->name('feeCollectionDash');
+        Route::get('/dashboard/fee-collection-individual/{studentcrId}/{mandateDateId}/{feeStructureId}', Fee10CollectionDetailIndividualComp::class)
+            ->name('feeCollectionIndividual');
 
       
     }

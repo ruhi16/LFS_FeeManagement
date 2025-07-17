@@ -11,6 +11,7 @@ class Fee10CollectionDetailIndividualComp extends Component{
 
     public function mount($studentcrId = null, $mandateDateId = null, $feeStructureId = null){
         // Initialize properties if needed
+        // dd($studentcrId, $mandateDateId, $feeStructureId);
         if ($studentcrId) {
             $this->studentcr = \App\Models\Studentcr::find($studentcrId);
         }
