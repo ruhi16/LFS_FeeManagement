@@ -83,9 +83,9 @@ Route::group(
 
 
 // Route::resource('/teachers', [TeacherController::class, 'index']);
-Route::resource('/teachers', TeacherController::class);
-Route::resource('/exam', ExamController::class);
-Route::resource('/students', StudentdbController::class);
+// Route::resource('/teachers', TeacherController::class);
+// Route::resource('/exam', ExamController::class);
+// Route::resource('/students', StudentdbController::class);
 
 
 Route::get('/dashboard', function () {
@@ -131,11 +131,11 @@ Route::get('/', function () {
 
 
 
-Route::get('auth/google', [GoogleAuthController::class, 'redirect'])
-    ->name('auth.google.login');
+// Route::get('auth/google', [GoogleAuthController::class, 'redirect'])
+//     ->name('auth.google.login');
 
-Route::get('auth/google/callback', [GoogleAuthController::class, 'callbackGoogle'])
-    ->name('auth.google.callback');
+// Route::get('auth/google/callback', [GoogleAuthController::class, 'callbackGoogle'])
+//     ->name('auth.google.callback');
 
 
 
